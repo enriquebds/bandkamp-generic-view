@@ -34,9 +34,19 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+                message="This field must be unique.",
+            )
+        ],
+    )
+
     class Meta:
         model = User
-        fields = ["id", "username", "email", "is_superuser"]
+        fields = ["id", "username", "email", "is_superuser",
+                  "password", "first_name", "last_name"]
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data: dict) -> User:
