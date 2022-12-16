@@ -5,7 +5,6 @@ from tests.factories import (
     create_album_with_user,
     create_multiple_songs_with_album,
 )
-import ipdb
 
 
 class SongViewTest(APITestCase):
